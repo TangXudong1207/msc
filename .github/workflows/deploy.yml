@@ -14,7 +14,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          # flutter-version: '3.x' # Optional, defaults to latest stable
+          flutter-version: '3.19.0'
 
       - name: Enable web support
         run: flutter config --enable-web
@@ -23,7 +23,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Web
-        run: flutter build web --release --web-renderer canvaskit --base-href "/msc/" --verbose
+        run: flutter build web --release --web-renderer canvaskit --base-href "/msc/"
 
       - name: Create 404.html for SPA support
         run: cp ./build/web/index.html ./build/web/404.html
