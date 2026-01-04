@@ -5,11 +5,11 @@ class EnvConfig {
 
   // 2. 如果是 DeepSeek，通常不需要改这个链接
   // 如果是其他服务商，请替换为对应的 Base URL
-  // static const String baseUrl = 'https://api.deepseek.com';
+  static const String baseUrl = 'https://api.deepseek.com';
 
   // [Web开发专用] 使用本地代理解决跨域问题
   // 运行: dart proxy_server.dart
-  static const String baseUrl = 'http://localhost:8080';
+  // static const String baseUrl = 'http://localhost:8080';
 
   // Supabase 配置
   static const String supabaseUrl = 'https://fuhnjqkvlmomdrdfzieb.supabase.co';
