@@ -99267,7 +99267,7 @@ s.vp()
 return s},
 $S:639}
 A.am5.prototype={
-$1(a){var s,r,q="http://localhost:8080",p="application/json",o=A.b([],t.n_),n=A.b([],t.LK),m=$.fO(),l=m.b
+$1(a){var s,r,q="https://api.deepseek.com",p="application/json",o=A.b([],t.n_),n=A.b([],t.LK),m=$.fO(),l=m.b
 l===$&&A.a()
 s=t.N
 r=t.z
