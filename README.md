@@ -1,48 +1,43 @@
-# AI Chat App
+# MSC - Meaning Spectrum Chat
 
-这是一个基于 Flutter 的 AI 聊天应用框架，支持 iOS、Android 和 Windows。
+MSC (Meaning Spectrum Chat) is a Flutter-based application that explores the world of meanings, connects soulmates, and visualizes your inner universe through a unique "Meaning Spectrum" analysis.
 
-## 项目结构
+## Features
 
-`	ext
-lib/
- main.dart           # 入口文件
- models/             # 数据模型 (Message)
- providers/          # 状态管理 (ChatProvider)
- screens/            # 页面 (ChatScreen)
- services/           # 业务服务 (API, Storage)
- utils/              # 工具类
- widgets/            # 可复用组件
-``n
-## 快速开始
+*   **Meaning Spectrum Analysis**: Analyze your personality and values based on 5 dimensions.
+*   **Soulmate Matching**: Find friends with high soul compatibility.
+*   **3D World Visualization**: View users across the globe on an interactive 3D Earth.
+*   **Real-time Chat**: Chat with friends and share images.
+*   **AI Integration**: Powered by DeepSeek and Google Vertex AI for intelligent analysis.
 
-### 1. 环境准备
-确保已安装 Flutter SDK。
+## Getting Started
 
-### 2. 安装依赖
-`ash
-flutter pub get
-``n
-### 3. 运行项目
+### Prerequisites
 
-**Windows:**
-`ash
-flutter run -d windows
-``n
-**Android:**
-启动模拟器或连接真机，然后运行：
-`ash
-flutter run -d android
-``n
-## 功能特性
+*   Flutter SDK (Latest Stable)
+*   Dart SDK
+*   Supabase Account (for backend)
 
-- [x] 基础聊天界面
-- [x] 消息气泡 (用户/AI 区分)
-- [x] Markdown 渲染支持
-- [x] 模拟 AI 回复 (Loading 状态)
-- [ ] 接入真实 AI API (DeepSeek/OpenAI)
-- [ ] 聊天记录本地持久化
-- [ ] 多会话支持
+### Installation
 
-## iOS 上线
-请参考 [iOS_DEPLOYMENT.md](iOS_DEPLOYMENT.md) 了解详细上线流程。
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/TangXudong1207/msc.git
+    ```
+2.  Install dependencies:
+    ```bash
+    flutter pub get
+    ```
+3.  Run the app:
+    ```bash
+    flutter run
+    ```
+
+## Deployment
+
+This project is configured for automatic deployment to GitHub Pages via GitHub Actions.
+Simply push to the `main` branch to trigger a new build.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
