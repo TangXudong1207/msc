@@ -3,12 +3,15 @@ class EnvConfig {
   // 比如: static const String apiKey = 'sk-xxxxxxxxxxxxxxxx';
   static const String apiKey = 'sk-004a5b3a42c84127a69c478aec15f203';
 
-  // 2. 如果是 DeepSeek，通常不需要改这个链接
-  // [Web部署专用] 使用公共 CORS 代理解决跨域问题
-  static const String baseUrl = 'https://corsproxy.io/?https://api.deepseek.com';
+  // 2. API 基础路径配置
+  // [Netlify/Vercel 部署] 使用相对路径，自动适配当前域名
+  // 这样部署后会自动请求 https://你的域名/chat/completions -> /api/chat (或 /.netlify/functions/chat)
+  static const String baseUrl = '';
 
-  // [Web开发专用] 使用本地代理解决跨域问题
-  // 运行: dart proxy_server.dart
+  // [备用] 如果部署在 GitHub Pages，需要填写完整的 Vercel 后端地址
+  // static const String baseUrl = 'https://msc-yourname.vercel.app';
+
+  // [本地开发] 使用本地代理
   // static const String baseUrl = 'http://localhost:8080';
 
   // Supabase 配置

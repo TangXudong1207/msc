@@ -1,0 +1,20 @@
+[build]
+  command = "flutter build web --release"
+  publish = "build/web"
+
+[functions]
+  directory = "netlify/functions"
+
+# 1. API 转发规则
+# 将 /chat/completions 转发到 Netlify Function
+[[redirects]]
+  from = "/chat/completions"
+  to = "/.netlify/functions/chat"
+  status = 200
+
+# 2. SPA 路由规则 (必须放在最后)
+# 确保刷新页面时不会 404，而是返回 index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
