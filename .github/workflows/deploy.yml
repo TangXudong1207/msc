@@ -22,11 +22,8 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      # IMPORTANT: Replace 'REPO_NAME' with your repository name if it's not a user site.
-      # If your repo is 'my-app', use: --base-href "/my-app/"
-      # If it is 'username.github.io', use: --base-href "/"
       - name: Build Web
-        run: flutter build web --release --web-renderer canvaskit --base-href "/${{ github.event.repository.name }}/"
+        run: flutter build web --release --web-renderer canvaskit --base-href "/msc/" --verbose
 
       - name: Create 404.html for SPA support
         run: cp ./build/web/index.html ./build/web/404.html
