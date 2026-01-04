@@ -1,11 +1,11 @@
 {
-    "name": "msc",
-    "short_name": "msc",
+    "name": "MSC - Meaning Spectrum Chat",
+    "short_name": "MSC",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#1a1a1a",
+    "theme_color": "#1a1a1a",
+    "description": "Explore the world of meanings, connect with soulmates, and visualize your inner universe.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
