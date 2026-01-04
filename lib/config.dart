@@ -4,8 +4,8 @@ class EnvConfig {
   static const String apiKey = 'sk-004a5b3a42c84127a69c478aec15f203';
 
   // 2. 如果是 DeepSeek，通常不需要改这个链接
-  // 如果是其他服务商，请替换为对应的 Base URL
-  static const String baseUrl = 'https://api.deepseek.com';
+  // [Web部署专用] 使用公共 CORS 代理解决跨域问题
+  static const String baseUrl = 'https://corsproxy.io/?https://api.deepseek.com';
 
   // [Web开发专用] 使用本地代理解决跨域问题
   // 运行: dart proxy_server.dart
