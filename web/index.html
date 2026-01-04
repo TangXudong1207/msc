@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="msc">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>msc</title>
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- 3D Globe Dependencies -->
+  <script src="https://unpkg.com/three"></script>
+  <script src="https://unpkg.com/globe.gl"></script>
+  <script>
+    window.initGlobe = function(viewId, groundDataJson, satDataJson, ringsDataJson) {
+      let attempts = 0;
+      const maxAttempts = 50; // 5 seconds timeout
+
+      const init = () => {
+        const element = document.getElementById(viewId);
+        if (!element) {
+          if (attempts < maxAttempts) {
+            attempts++;
+            console.log("Waiting for globe element...", viewId, attempts);
+            setTimeout(init, 100);
+            return;
+          }
+          console.error("Globe element not found after waiting:", viewId);
+          return;
+        }
+
+        // Parse JSON data
+        const groundData = JSON.parse(groundDataJson);
+        const satData = JSON.parse(satDataJson);
+        const ringsData = JSON.parse(ringsDataJson);
+
+        // Clear previous content
+        element.innerHTML = '';
+
+        const world = Globe()
+          (element)
+          .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
+          .backgroundColor('#000000')
+          .atmosphereColor('#2222ff')
+          .atmosphereAltitude(0.15)
+          .pointsData(groundData)
+          .pointAltitude('alt')
+          .pointColor('color')
+          .pointRadius('radius')
+          .pointResolution(12)
+          .pointLabel('label')
+          .customLayerData(satData)
+          .customThreeObject(d => {
+              const geometry = new THREE.SphereGeometry(d.radius * 2); 
+              const material = new THREE.MeshLambertMaterial({ color: d.color });
+              return new THREE.Mesh(geometry, material);
+          })
+          .customThreeObjectUpdate((obj, d) => {
+              Object.assign(obj.position, world.getCoords(d.lat, d.lng, d.alt));
+          })
+          .ringsData(ringsData)
+          .ringColor('color')
+          .ringAltitude('alt')
+          .ringMaxRadius('maxR')
+          .ringPropagationSpeed('prop')
+          .ringRepeatPeriod(1000);
+
+        world.controls().autoRotate = true;
+        world.controls().autoRotateSpeed = 0.4;
+        world.pointOfView({ lat: 20, lng: 100, altitude: 2.5 });
+      };
+
+      init();
+    }
+  </script>
+</head>
+<body>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
