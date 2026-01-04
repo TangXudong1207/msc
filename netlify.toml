@@ -1,5 +1,6 @@
 [build]
-  command = "flutter build web --release"
+  # 自动下载 Flutter 并构建 (防止 Netlify 找不到 flutter 命令)
+  command = "git clone https://github.com/flutter/flutter.git -b stable flutter_sdk && ./flutter_sdk/bin/flutter build web --release"
   publish = "build/web"
 
 [functions]
