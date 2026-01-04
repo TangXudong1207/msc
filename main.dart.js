@@ -99267,11 +99267,11 @@ s.vp()
 return s},
 $S:639}
 A.am5.prototype={
-$1(a){var s,r,q="https://corsproxy.io/?https://api.deepseek.com",p="application/json",o=A.b([],t.n_),n=A.b([],t.LK),m=$.fO(),l=m.b
-l===$&&A.a()
+$1(a){var s,r,q="application/json",p=A.b([],t.n_),o=A.b([],t.LK),n=$.fO(),m=n.b
+m===$&&A.a()
 s=t.N
 r=t.z
-return new A.ev(o,n,new A.aaB(A.aLw(A.aL6(q,B.kw,A.a7(["Authorization","Bearer sk-004a5b3a42c84127a69c478aec15f203","Content-Type",p],s,r),B.p8)),l),new A.avl(A.aLw(A.aL6(q,B.kw,A.a7(["Content-Type",p],s,r),B.p8))),A.aTO(),m.b,A.b([],t.Rz),A.b([],t.ux),$.ay())},
+return new A.ev(p,o,new A.aaB(A.aLw(A.aL6("",B.kw,A.a7(["Authorization","Bearer sk-004a5b3a42c84127a69c478aec15f203","Content-Type",q],s,r),B.p8)),m),new A.avl(A.aLw(A.aL6("",B.kw,A.a7(["Content-Type",q],s,r),B.p8))),A.aTO(),n.b,A.b([],t.Rz),A.b([],t.ux),$.ay())},
 $S:640}
 A.am6.prototype={
 $1(a){return new A.rW(B.n,$.ay())},
