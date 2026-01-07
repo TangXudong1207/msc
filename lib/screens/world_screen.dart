@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../widgets/custom_globe.dart';
 import '../services/world_service.dart';
 import '../models/world_meaning.dart';
+import '../utils/demo_data_helper.dart';
 import '../providers/language_provider.dart';
 import '../providers/chat_provider.dart';
 
@@ -29,14 +30,14 @@ class _WorldScreenState extends State<WorldScreen> {
 
   Future<void> _checkAccessAndLoad() async {
     final chatProvider = context.read<ChatProvider>();
-    
+
     // 1. Check Unlock Condition (5 cards)
     if (chatProvider.allMeaningCards.length < 5) {
       setState(() {
         _isLocked = true;
         _isLoading = false;
       });
-      
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _showLockDialog();
       });
@@ -54,12 +55,11 @@ class _WorldScreenState extends State<WorldScreen> {
       barrierDismissible: false,
       builder: (context) => AlertDialog(
         backgroundColor: Colors.black87,
-        title: Text(languageProvider.getText('未解锁', 'LOCKED'), style: const TextStyle(color: Colors.cyan)),
+        title: Text(languageProvider.getText('未解锁', 'LOCKED'),
+            style: const TextStyle(color: Colors.cyan)),
         content: Text(
-          languageProvider.getText(
-            '你需要先探索自己的内心（解锁 5 张意义卡），才能看到世界的全貌。',
-            'You need to explore your own heart first (Unlock 5 Meaning Cards) to see the whole world.'
-          ),
+          languageProvider.getText('你需要先探索自己的内心（解锁 5 张意义卡），才能看到世界的全貌。',
+              'You need to explore your own heart first (Unlock 5 Meaning Cards) to see the whole world.'),
           style: const TextStyle(color: Colors.white70),
         ),
         actions: [
@@ -68,7 +68,8 @@ class _WorldScreenState extends State<WorldScreen> {
               Navigator.pop(context); // Close dialog
               Navigator.pop(context); // Go back to home
             },
-            child: Text(languageProvider.getText('返回', 'BACK'), style: const TextStyle(color: Colors.cyan)),
+            child: Text(languageProvider.getText('返回', 'BACK'),
+                style: const TextStyle(color: Colors.cyan)),
           ),
         ],
       ),
@@ -83,14 +84,13 @@ class _WorldScreenState extends State<WorldScreen> {
           _meanings = data;
           _isLoading = false;
         });
-        
+
         // Show Privacy Toast
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(context.read<LanguageProvider>().getText(
-              '位置已模糊处理至城市级别以保护隐私',
-              'Locations are blurred to city level for privacy'
-            )),
+                '位置已模糊处理至城市级别以保护隐私',
+                'Locations are blurred to city level for privacy')),
             backgroundColor: Colors.black54,
             duration: const Duration(seconds: 3),
           ),
@@ -111,7 +111,7 @@ class _WorldScreenState extends State<WorldScreen> {
   @override
   Widget build(BuildContext context) {
     final languageProvider = context.watch<LanguageProvider>();
-    
+
     if (_isLocked) {
       return const Scaffold(backgroundColor: Colors.black);
     }
@@ -125,7 +125,7 @@ class _WorldScreenState extends State<WorldScreen> {
             Positioned.fill(
               child: CustomGlobe(meanings: _meanings),
             ),
-            
+
           // Loading Indicator
           if (_isLoading)
             const Center(child: CircularProgressIndicator(color: Colors.cyan)),
@@ -139,7 +139,7 @@ class _WorldScreenState extends State<WorldScreen> {
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),
-          
+
           Positioned(
             top: 40,
             right: 20,
@@ -161,7 +161,7 @@ class _WorldScreenState extends State<WorldScreen> {
               ],
             ),
           ),
-          
+
           // Stats Overlay
           Positioned(
             bottom: 40,
@@ -171,11 +171,17 @@ class _WorldScreenState extends State<WorldScreen> {
               children: [
                 Text(
                   "${languageProvider.getText('活跃卫星', 'ACTIVE SATELLITES')}: ${_meanings.where((m) => m.isSatellite).length}",
-                  style: const TextStyle(color: Colors.white70, fontFamily: 'Courier', fontSize: 12),
+                  style: const TextStyle(
+                      color: Colors.white70,
+                      fontFamily: 'Courier',
+                      fontSize: 12),
                 ),
                 Text(
                   "${languageProvider.getText('地表节点', 'SURFACE NODES')}: ${_meanings.where((m) => m.isSurface).length}",
-                  style: const TextStyle(color: Colors.white70, fontFamily: 'Courier', fontSize: 12),
+                  style: const TextStyle(
+                      color: Colors.white70,
+                      fontFamily: 'Courier',
+                      fontSize: 12),
                 ),
               ],
             ),

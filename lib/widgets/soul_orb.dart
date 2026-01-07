@@ -9,6 +9,7 @@ class SoulOrbWidget extends StatefulWidget {
   final double maxValue;
   final double width;
   final double height;
+  final int renderStyle; // 0: Legacy, 1: Crystal, 2: Nebula
 
   const SoulOrbWidget({
     super.key,
@@ -16,6 +17,7 @@ class SoulOrbWidget extends StatefulWidget {
     required this.maxValue,
     this.width = 300,
     this.height = 300,
+    this.renderStyle = 0,
   });
 
   @override
@@ -27,7 +29,7 @@ class _SoulOrbWidgetState extends State<SoulOrbWidget>
   ui.FragmentProgram? _program;
   late Ticker _ticker;
   double _time = 0.0;
-  
+
   // Manual rotation state
   double _rotationX = 0.0; // Yaw
   double _rotationY = 0.0; // Pitch
@@ -46,7 +48,8 @@ class _SoulOrbWidgetState extends State<SoulOrbWidget>
 
   Future<void> _loadShader() async {
     try {
-      final program = await ui.FragmentProgram.fromAsset('shaders/soul_orb.frag');
+      final program =
+          await ui.FragmentProgram.fromAsset('shaders/soul_orb.frag');
       setState(() {
         _program = program;
       });
@@ -83,7 +86,7 @@ class _SoulOrbWidgetState extends State<SoulOrbWidget>
           // Sensitivity factor
           _rotationX -= details.delta.dx * 0.005;
           _rotationY += details.delta.dy * 0.005;
-          
+
           // Clamp pitch to avoid flipping upside down too easily
           _rotationY = _rotationY.clamp(-1.5, 1.5);
         });
@@ -101,6 +104,7 @@ class _SoulOrbWidgetState extends State<SoulOrbWidget>
           saturation: _norm(MeaningDimension.aesthetic),
           auraIntensity: _norm(MeaningDimension.transcendence),
           manualRotation: Offset(_rotationX, _rotationY),
+          renderStyle: widget.renderStyle.toDouble(),
         ),
       ),
     );
@@ -118,6 +122,7 @@ class _SoulOrbPainter extends CustomPainter {
   final double saturation;
   final double auraIntensity;
   final Offset manualRotation;
+  final double renderStyle;
 
   _SoulOrbPainter({
     required this.program,
@@ -130,6 +135,7 @@ class _SoulOrbPainter extends CustomPainter {
     required this.saturation,
     required this.auraIntensity,
     required this.manualRotation,
+    required this.renderStyle,
   });
 
   @override
@@ -140,34 +146,37 @@ class _SoulOrbPainter extends CustomPainter {
     // uniform vec2 u_resolution;
     shader.setFloat(0, size.width);
     shader.setFloat(1, size.height);
-    
+
     // uniform float u_time;
     shader.setFloat(2, time);
-    
+
     // uniform float u_turbulence;
     shader.setFloat(3, turbulence);
-    
+
     // uniform float u_spikes;
     shader.setFloat(4, spikes);
-    
+
     // uniform float u_inner_glow;
     shader.setFloat(5, innerGlow);
-    
+
     // uniform float u_hole_radius;
     shader.setFloat(6, holeRadius);
-    
+
     // uniform float u_color_shift_speed;
     shader.setFloat(7, colorShiftSpeed);
-    
+
     // uniform float u_saturation;
     shader.setFloat(8, saturation);
-    
+
     // uniform float u_aura_intensity;
     shader.setFloat(9, auraIntensity);
 
     // uniform vec2 u_mouse;
     shader.setFloat(10, manualRotation.dx);
     shader.setFloat(11, manualRotation.dy);
+
+    // uniform float u_render_style;
+    shader.setFloat(12, renderStyle);
 
     // Removed complex offset/scale logic as we simplified the shader
     // to use normalized coordinates.
@@ -181,7 +190,7 @@ class _SoulOrbPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _SoulOrbPainter oldDelegate) {
     return oldDelegate.time != time ||
-           oldDelegate.manualRotation != manualRotation ||
-           oldDelegate.turbulence != turbulence;
+        oldDelegate.manualRotation != manualRotation ||
+        oldDelegate.turbulence != turbulence;
   }
 }

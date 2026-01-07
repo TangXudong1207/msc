@@ -1,0 +1,4 @@
+The user wants to deploy to Vercel but first "delete soul and world meaning display templates". 
+I suspect this refers to the debug/demo UI that allows switching between different data presets (templates).
+I will check `lib/screens/analysis_screen.dart` and `lib/screens/world_screen.dart` for these controls.
+Then I will run the build and deploy.
