@@ -15,17 +15,17 @@
 5.  授权 Netlify 访问你的 GitHub 仓库，并选择 `msc` 项目。
 6.  **配置构建设置 (Build Settings)**:
     *   Netlify 通常会自动读取我们刚刚创建的 `netlify.toml` 文件，所以你可能不需要手动填写这些，但请检查确认：
-    *   **Build command**: `flutter build web --release`
+    *   **Build command**: `rm -rf flutter_sdk && git clone ...` (会自动从 netlify.toml 读取，包含 Flutter 安装脚本)
     *   **Publish directory**: `build/web`
 7.  点击 **Deploy msc**。
 
 ## 3. 等待构建
 
-Netlify 会自动拉取代码、安装 Flutter 环境（如果它检测到的话）并构建。
+Our `netlify.toml` 包含了一个脚本，会在构建时自动下载 Flutter SDK。因此，Netlify 应该能成功自动构建。
 
-**注意**: Netlify 的构建环境可能默认没有安装 Flutter。如果构建失败，提示找不到 flutter 命令，你需要告诉 Netlify 如何安装 Flutter。
+**注意**: Netlify 的构建环境默认没有安装 Flutter，但我们的脚本解决了这个问题。
 
-### 如果构建失败 (找不到 flutter 命令):
+### 如果构建仍然失败:
 
 最简单的方法是使用我们已经生成的 `build/web` 产物，而不是让 Netlify 去编译 Flutter。
 
